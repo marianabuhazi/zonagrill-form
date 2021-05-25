@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useState } from "react"
 
 
 const Container=styled.div`
@@ -38,60 +39,64 @@ const Submit= styled.button`
     padding:2px;
 `
 
-let order={
-    "name":"",
-    "appetizer":"",
-    "entree":"",
-    "drink":"",
-    "comments":""
+const Form = ({submitOrder}) => {
+    const [newName, setNewName]= useState("");
+    const [newAppetizer, setNewAppetizer]= useState("");
+    const [newEntree, setNewEntree]= useState("");
+    const [newDrink, setNewDrink]= useState("");
+    const [newComments, setNewComments]= useState("");
+    console.log(newName, newAppetizer, newEntree, newDrink, newComments);
 
-}
 
-let createOrder=()=>{
-    if(order.name==="" || order.appetizer==="" || order.entree==="" || order.drink===""){
+const onSubmit =(newOrder)=>{
+    newOrder.preventDefault();
+    if(newName==="" || newAppetizer==="" || newEntree==="" || newDrink===""){
         alert("Please fill out all required fields.")
     }
-    console.log(order)
+    else{
+        submitOrder(newName, newAppetizer, newEntree, newDrink, newComments);
+    }
 }
-
-
-const Form = () => {
     return (
         <div>
         <Container>
-            <Question>* Enter your name: <Input type="text" placeholder="Name" required onChange={(e)=>order.name=e.target.value}></Input>
+            <Question>* Enter your name: <Input type="text" placeholder="Name" value={newName} required onChange={(e)=>setNewName(e.target.value)}></Input>
             </Question>
             <Question>* 1.) Select one appetizer
-                <Select onChange={(e)=>order.appetizer=e.target.value}>
-                    <option defaultValue="None">None</option>
+                <Select onChange={(e)=>setNewAppetizer(e.target.value)}>
+                    <option defaultValue=""></option>
+                    <option value="None">None</option>
                     <option value="Hot Dog">Hot Dog</option>
                     <option value="Tequeños">Tequeños</option>
                 </Select>
             </Question>
             <Question>* 2.) Select one entree
-                <Select onChange={(e)=>order.entree=e.target.value}>
-                    <option  defaultValue="None">None</option>
+                <Select onChange={(e)=>setNewEntree(e.target.value)}>
+                    <option defaultValue=""></option>
+                    <option value="None">None</option>
                     <option value="Pepito">Pepito</option>
                     <option value="Arepa">Arepa</option>
                     <option value="Burger">Burger</option>
                     <option value="Cachapa">Cachapa</option>
                 </Select>
             </Question>
-            <Question onChange={(e)=>order.drink=e.target.value}>* 3.) Select one drink
+            <Question onChange={(e)=>setNewDrink(e.target.value)}>* 3.) Select one drink
                 <Select >
-                    <option  defaultValue="None">None</option>
+                    <option defaultValue=""></option>
+                    <option value="None">None</option>
                     <option value="Frescolita">Frescolita (Bubble gum flavored)</option>
                     <option value="Coca Cola">Coca Cola</option>
                     <option value="Malta">Malta</option>
                     <option value="Sprite">Sprite</option>
                 </Select>
             </Question>
-            <Question>Comments for the chef: <Input type="text" placeholder="Comments" required onChange={(e)=>order.comments=e.target.value}></Input></Question>
+            <Question>Comments for the chef: <Input type="text" placeholder="Comments" value={newComments} required onChange={(e)=>setNewComments(e.target.value)}></Input></Question>
             
         </Container>
-        <Submit onClick={createOrder}>Submit</Submit>
+        <Submit onClick={(newOrder)=>onSubmit(newOrder)}>Submit</Submit>
     </div>
     )
 }
+
 
 export default Form
