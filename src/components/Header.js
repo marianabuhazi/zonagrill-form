@@ -1,6 +1,6 @@
 import logo from '/Users/marianabuhazi/zonagrill-form/src/images/logo.png'
 import styled from 'styled-components'
-import '/Users/marianabuhazi/zonagrill-form/src/index.css'
+import '../fonts/index.css'
 
 //Styled components
 const Logo= styled.img`

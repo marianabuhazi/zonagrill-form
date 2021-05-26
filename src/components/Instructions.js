@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import '/Users/marianabuhazi/zonagrill-form/src/index.css'
+import '../fonts/index.css'
 
 const Select= styled.h4`
     text-align:center;
