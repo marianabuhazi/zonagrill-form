@@ -26,7 +26,7 @@ function ThankYou({id}) {
   
   //console.log(id)
   const getUserOrder=()=>{ 
-    fetch(`http://localhost:8080/api/get_order/${id}`, {
+    fetch(`/api/get_order/${id}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json', 

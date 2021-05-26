@@ -1,6 +1,6 @@
 import Form from './components/Form'
 import ThankYou from './components/ThankYou'
-import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {useState} from "react"
 import './fonts/index.css'
 
