@@ -1,4 +1,4 @@
-import logo from '/Users/marianabuhazi/zonagrill-form/src/images/logo.png'
+import logo from '../images/logo.png'
 import styled from 'styled-components'
 import '../fonts/index.css'
 
