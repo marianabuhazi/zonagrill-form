@@ -28,6 +28,17 @@ module.exports = {
             console.log(err);
             res.json(err);
         });
+    },
+    get_order: (req, res) => {
+        orders.findOne({order_num: req.params})
+        .then(orderData => {
+            console.log(orderData);
+            res.json({data:orderData});
+        })
+        .catch(err => {
+            console.log(err);
+            res.json(err);
+        });
     }
 
 };

@@ -1,6 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { useState } from "react"
+import Header from './Header'
+import Instructions from './Instructions'
+import { useHistory } from "react-router-dom"
 
 
 const Container=styled.div`
@@ -39,13 +42,78 @@ const Submit= styled.button`
     padding:2px;
 `
 
-const Form = ({submitOrder}) => {
+
+const Form = ({setId}) => {
+    let newOrderNum;
+    let history= useHistory();
+
+const submitOrder=(newName, newAppetizer, newEntree, newDrink, newComments)=>{ 
+  fetch(`http://localhost:8080/api/get_orders_length`, {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json', 
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response=> {
+    if(response.status>= 200 && response.status<300){
+      return response;
+    }
+    const error= new Error(`HTTP Error ${response.statusText}`);
+    error.status=response.statusText;
+    error.response=response;
+    console.log(error);
+    throw error;
+  })
+  .then(response => response.json())
+  .then(json => {
+    newOrderNum=json.orderData +1;
+    setId(newOrderNum);
+    
+
+    const newOrder={
+      "order_num": newOrderNum, 
+      "name":newName, 
+      "appetizer": newAppetizer,
+      "entree":newEntree,
+      "drink":newDrink,
+      "comments": newComments,
+      "ready": false
+    };
+    console.log(newOrder)
+        fetch(`http://localhost:8080/api/enter_order/`, {
+            method: 'POST',
+            body:JSON.stringify({order:newOrder}),
+            headers: {
+              'Accept': 'application/json', 
+              'Content-Type': 'application/json'
+            }
+          })
+          .then(response => {
+            if(response.status>= 200 && response.status<300){
+              return response;
+              }
+              const error= new Error(`HTTP Error ${response.statusText}`);
+              error.status=response.statusText;
+              error.response=response;
+              console.log(error);
+              throw error;
+          })
+          .then(response=>response.json())
+          .then(json=>{
+          console.log(json);
+          history.push("/confirmation");
+          })
+          .catch(error=>console.log(error));
+  })
+  .catch(error=>console.log(error));
+}
+
     const [newName, setNewName]= useState("");
     const [newAppetizer, setNewAppetizer]= useState("");
     const [newEntree, setNewEntree]= useState("");
     const [newDrink, setNewDrink]= useState("");
     const [newComments, setNewComments]= useState("");
-    console.log(newName, newAppetizer, newEntree, newDrink, newComments);
 
 
 const onSubmit =(newOrder)=>{
@@ -54,11 +122,13 @@ const onSubmit =(newOrder)=>{
         alert("Please fill out all required fields.")
     }
     else{
-        submitOrder(newName, newAppetizer, newEntree, newDrink, newComments);
+        submitOrder(newName, newAppetizer, newEntree, newDrink, newComments); 
     }
 }
     return (
         <div>
+        <Header name="Thermofisher Corporate Event"/>
+        <Instructions/>
         <Container>
             <Question>* Enter your name: <Input type="text" placeholder="Name" value={newName} required onChange={(e)=>setNewName(e.target.value)}></Input>
             </Question>
