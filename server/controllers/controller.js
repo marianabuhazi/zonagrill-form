@@ -30,10 +30,10 @@ module.exports = {
         });
     },
     get_order: (req, res) => {
-        orders.findOne({order_num: req.params})
+        orders.findOne({'order_num': req.params.id})
         .then(orderData => {
             console.log(orderData);
-            res.json({data:orderData});
+            res.json({orderData});
         })
         .catch(err => {
             console.log(err);

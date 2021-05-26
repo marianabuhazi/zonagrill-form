@@ -1,6 +1,7 @@
 import Header from './Header'
 import styled from 'styled-components';
-import {useEffect} from 'react';
+import {useState, useEffect} from 'react';
+import Order from './Order' 
 
 const ThankYouMess=styled.h4`
     text-align:center;
@@ -17,13 +18,18 @@ const ThankYouMess=styled.h4`
 
 function ThankYou({id}) {
   useEffect(() => getUserOrder());
-  let orderNum= id;
+  const [user_name, setName]=useState()
+  const [entree, setEntree]=useState()
+  const [drink, setDrink]=useState()
+  const [appetizer, setAppetizer]=useState()
+  const [orderNum, setOrderNum]=useState()
+  
+  //console.log(id)
   const getUserOrder=()=>{ 
-    fetch(`http://localhost:8080/api/get_order/${orderNum}`, {
+    fetch(`http://localhost:8080/api/get_order/${id}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json', 
-        'Content-Type': 'application/json'
       }
     })
     .then(response=> {
@@ -38,14 +44,19 @@ function ThankYou({id}) {
     })
      .then(response=>response.json())
     .then(json => {
-      console.log(json);
+      setName(json.orderData.name)
+      setOrderNum(json.orderData.order_num)
+      setAppetizer(json.orderData.appetizer)
+      setDrink(json.orderData.drink)
+      setEntree(json.orderData.entree)
+      //console.log(order)
     })
   }
     return (
       <div>
         <Header name="Thermofisher Corporate Event" />
         <ThankYouMess>Thank you, your order has been processed.</ThankYouMess>
-
+        <Order user_name={user_name} orderNum={orderNum} entree={entree} drink={drink} appetizer={appetizer}/>
 
         
       </div>

@@ -80,7 +80,7 @@ const submitOrder=(newName, newAppetizer, newEntree, newDrink, newComments)=>{
       "comments": newComments,
       "ready": false
     };
-    console.log(newOrder)
+    // console.log(newOrder)
         fetch(`http://localhost:8080/api/enter_order/`, {
             method: 'POST',
             body:JSON.stringify({order:newOrder}),
