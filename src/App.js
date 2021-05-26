@@ -1,4 +1,3 @@
-import '/Users/marianabuhazi/zonagrill-form/src/index.css'
 import Form from './components/Form'
 import ThankYou from './components/ThankYou'
 import {BrowserRouter as Router, Route, Switch, Link} from "react-router-dom";
