@@ -48,7 +48,7 @@ const Form = ({setId}) => {
     let history= useHistory();
 
 const submitOrder=(newName, newAppetizer, newEntree, newDrink, newComments)=>{ 
-  fetch(`/api/get_orders_length`, {
+  fetch(`https://zonagrill-order.herokuapp.com/api/get_orders_length`, {
     method: 'GET',
     headers: {
       'Accept': 'application/json', 
@@ -81,7 +81,7 @@ const submitOrder=(newName, newAppetizer, newEntree, newDrink, newComments)=>{
       "ready": false
     };
     // console.log(newOrder)
-        fetch(`/api/enter_order/`, {
+        fetch(`https://zonagrill-order.herokuapp.com/api/enter_order/`, {
             method: 'POST',
             body:JSON.stringify({order:newOrder}),
             headers: {

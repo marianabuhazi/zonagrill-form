@@ -26,7 +26,7 @@ function ThankYou({id}) {
   
   //console.log(id)
   const getUserOrder=()=>{ 
-    fetch(`/api/get_order/${id}`, {
+    fetch(`https://zonagrill-order.herokuapp.com/api/get_order/${id}`, {
       method: 'GET',
       headers: {
         'Accept': 'application/json', 

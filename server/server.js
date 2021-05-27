@@ -33,7 +33,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use('/api/', routes);
 
 if(process.env.NODE_ENV==='production'){
-  app.use(Express.static('client/build'));
+  app.use(express.static('/build'));
   app.get('*', (req,res)=>{
     res.sendFile(path.join(__dirname,'build','index.html'));
   });
